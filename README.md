@@ -7,3 +7,5 @@ start.sh is the script for the deployement of the chain. 4 accounts will be crea
 transactions.sh executes a series of 48 mixed transactions.
 
 For more specific questions see guide.odt.
+
+requirements : python3
