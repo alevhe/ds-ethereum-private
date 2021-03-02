@@ -22,6 +22,7 @@ addpeer2="admin.addPeer('" + enode2[start1:end1] + ip2 + enode2[start2:end2] + "
 adpeer2= addpeer2.replace('-','')
 adpeer2= addpeer2.replace('\n','')
 
+
 enode3 = enode3f.read()
 start1=enode3.find("\"")+1
 end1=enode3.find("[")+1

@@ -14,9 +14,9 @@ mkdir -p Ethereum/data/eth4
 
 mkdir -p Ethereum/data/urls
 
-sudo add-apt-repository -y ppa:ethereum/ethereum
-sudo apt-get update
-sudo apt-get install ethereum
+#sudo add-apt-repository -y ppa:ethereum/ethereum
+#sudo apt-get update
+#sudo apt-get install ethereum
 
 cd Ethereum
 
@@ -105,19 +105,39 @@ docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$(
 
 python3 makeurl.py
 
-geth --exec "admin.nodeInfo.enode" attach "$(< Ethereum/data/urls/url1.txt)"  > Ethereum/data/eth1/enode.txt
-geth --exec "admin.nodeInfo.enode" attach "$(< Ethereum/data/urls/url2.txt)"  > Ethereum/data/eth2/enode.txt
-geth --exec "admin.nodeInfo.enode" attach "$(< Ethereum/data/urls/url3.txt)"  > Ethereum/data/eth3/enode.txt
-geth --exec "admin.nodeInfo.enode" attach "$(< Ethereum/data/urls/url4.txt)"  > Ethereum/data/eth4/enode.txt
+####prove
+docker exec -it eth1 geth --exec "admin.nodeInfo.enode" attach "$(< Ethereum/data/urls/url1.txt)"  > Ethereum/data/eth1/enode.txt
+docker exec -it eth2 geth --exec "admin.nodeInfo.enode" attach "$(< Ethereum/data/urls/url2.txt)"  > Ethereum/data/eth2/enode.txt
+docker exec -it eth3 geth --exec "admin.nodeInfo.enode" attach "$(< Ethereum/data/urls/url3.txt)"  > Ethereum/data/eth3/enode.txt
+docker exec -it eth4 geth --exec "admin.nodeInfo.enode" attach "$(< Ethereum/data/urls/url4.txt)"  > Ethereum/data/eth4/enode.txt
+
+
+sed -i '1s/^.....//' Ethereum/data/eth1/enode.txt
+sed -i '1s/^.....//' Ethereum/data/eth2/enode.txt 
+sed -i '1s/^.....//' Ethereum/data/eth3/enode.txt 
+sed -i '1s/^.....//' Ethereum/data/eth4/enode.txt 
+
+
+#OLD
+#geth --exec "admin.nodeInfo.enode" attach "$(< Ethereum/data/urls/url1.txt)"  > Ethereum/data/eth1/enode.txt
+#geth --exec "admin.nodeInfo.enode" attach "$(< Ethereum/data/urls/url2.txt)"  > Ethereum/data/eth2/enode.txt
+#geth --exec "admin.nodeInfo.enode" attach "$(< Ethereum/data/urls/url3.txt)"  > Ethereum/data/eth3/enode.txt
+#geth --exec "admin.nodeInfo.enode" attach "$(< Ethereum/data/urls/url4.txt)"  > Ethereum/data/eth4/enode.txt
 
 
 python3 addpeercreation.py
 
+sleep 1
+
+cp addpeerf1.js Ethereum
+cp addpeerf2.js Ethereum
+cp addpeerf3.js Ethereum
+
 sleep 5
 
-geth --exec 'loadScript("addpeerf1.js")' attach "$(< Ethereum/data/urls/url1.txt)"
-geth --exec 'loadScript("addpeerf2.js")' attach "$(< Ethereum/data/urls/url2.txt)"
-geth --exec 'loadScript("addpeerf3.js")' attach "$(< Ethereum/data/urls/url3.txt)"
+docker exec -it eth1 geth --exec 'loadScript("addpeerf1.js")' attach "$(< Ethereum/data/urls/url1.txt)"
+docker exec -it eth2 geth --exec 'loadScript("addpeerf2.js")' attach "$(< Ethereum/data/urls/url2.txt)"
+docker exec -it eth3 geth --exec 'loadScript("addpeerf3.js")' attach "$(< Ethereum/data/urls/url3.txt)"
 
 python3 createtransaction.py
 
