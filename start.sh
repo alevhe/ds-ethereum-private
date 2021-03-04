@@ -63,22 +63,22 @@ docker run -it --rm --name geth -u $(id -u $USER):$(id -g $USER) -v $HOME/Ethere
 echo Four new tabs will be opened, one for each account !
 
 
-gnome-terminal --title "Eth1" --tab -e "docker run -it --rm --name eth1 -v $HOME/Ethereum:/root -u $(id -u $USER):$(id -g $USER) -p 8081:8081 -p 30001:30001 ethereum/client-go:alltools-v1.7.3 geth --password /root/data/eth1/eth1.txt --unlock 0 --identity "eth1" --datadir /root/data/eth1 --ethash.dagdir /root/data/eth1 --networkid "12345" --maxpeers 4 --nodiscover --rpc --rpcaddr "0.0.0.0" --rpcport 8081 --rpccorsdomain "*" --rpcapi "eth,net,web3,admin,personal" --port 30001 --verbosity 2 console"
+gnome-terminal --title "Eth1" --tab -e "docker run -it --rm --name cont1 -v $HOME/Ethereum:/root -u $(id -u $USER):$(id -g $USER) -p 8081:8081 -p 30001:30001 ethereum/client-go:alltools-v1.7.3 geth --password /root/data/eth1/eth1.txt --unlock 0 --identity "eth1" --datadir /root/data/eth1 --ethash.dagdir /root/data/eth1 --networkid "12345" --maxpeers 4 --nodiscover --rpc --rpcaddr "0.0.0.0" --rpcport 8081 --rpccorsdomain "*" --rpcapi "eth,net,web3,admin,personal" --port 30001 --verbosity 2 console"
 
 sleep 2
 docker container ls -q -l > Ethereum/data/eth1/id1.txt
 
-gnome-terminal --title "Eth2" --tab -e "docker run -it --rm --name eth2 -v $HOME/Ethereum:/root -u $(id -u $USER):$(id -g $USER) -p 8082:8082 -p 30002:30002 ethereum/client-go:alltools-v1.7.3 geth --password /root/data/eth2/eth2.txt --unlock 0 --identity "eth2" --datadir /root/data/eth2 --ethash.dagdir /root/data/eth2 --networkid "12345" --maxpeers 4 --nodiscover --rpc --rpcaddr "0.0.0.0" --rpcport 8081 --rpccorsdomain "*" --rpcapi "eth,net,web3,admin,personal" --port 30002 --verbosity 2 console"
+gnome-terminal --title "Eth2" --tab -e "docker run -it --rm --name cont2 -v $HOME/Ethereum:/root -u $(id -u $USER):$(id -g $USER) -p 8082:8082 -p 30002:30002 ethereum/client-go:alltools-v1.7.3 geth --password /root/data/eth2/eth2.txt --unlock 0 --identity "eth2" --datadir /root/data/eth2 --ethash.dagdir /root/data/eth2 --networkid "12345" --maxpeers 4 --nodiscover --rpc --rpcaddr "0.0.0.0" --rpcport 8081 --rpccorsdomain "*" --rpcapi "eth,net,web3,admin,personal" --port 30002 --verbosity 2 console"
 
 sleep 2
 docker container ls -q -l > Ethereum/data/eth2/id2.txt
 
-gnome-terminal --title "Eth3" --tab -e "docker run -it --rm --name eth3 -v $HOME/Ethereum:/root -u $(id -u $USER):$(id -g $USER) -p 8083:8083 -p 30003:30003 ethereum/client-go:alltools-v1.7.3 geth --password /root/data/eth3/eth3.txt --unlock 0 --identity "eth3" --datadir /root/data/eth3 --ethash.dagdir /root/data/eth3 --networkid "12345" --maxpeers 4 --nodiscover --rpc --rpcaddr "0.0.0.0" --rpcport 8081 --rpccorsdomain "*" --rpcapi "eth,net,web3,admin,personal" --port 30003 --verbosity 2 console"
+gnome-terminal --title "Eth3" --tab -e "docker run -it --rm --name cont3 -v $HOME/Ethereum:/root -u $(id -u $USER):$(id -g $USER) -p 8083:8083 -p 30003:30003 ethereum/client-go:alltools-v1.7.3 geth --password /root/data/eth3/eth3.txt --unlock 0 --identity "eth3" --datadir /root/data/eth3 --ethash.dagdir /root/data/eth3 --networkid "12345" --maxpeers 4 --nodiscover --rpc --rpcaddr "0.0.0.0" --rpcport 8081 --rpccorsdomain "*" --rpcapi "eth,net,web3,admin,personal" --port 30003 --verbosity 2 console"
 
 sleep 2
 docker container ls -q -l > Ethereum/data/eth3/id3.txt
 
-gnome-terminal --title "Eth4" --tab -e "docker run -it --rm --name eth4 -v $HOME/Ethereum:/root -u $(id -u $USER):$(id -g $USER) -p 8084:8084 -p 30004:30004 ethereum/client-go:alltools-v1.7.3 geth --password /root/data/eth4/eth4.txt --unlock 0 --identity "eth4" --datadir /root/data/eth4 --ethash.dagdir /root/data/eth4 --networkid "12345" --maxpeers 4 --nodiscover --rpc --rpcaddr "0.0.0.0" --rpcport 8081 --rpccorsdomain "*" --rpcapi "eth,net,web3,admin,personal" --port 30004 --verbosity 2 console" 
+gnome-terminal --title "Eth4" --tab -e "docker run -it --rm --name cont4 -v $HOME/Ethereum:/root -u $(id -u $USER):$(id -g $USER) -p 8084:8084 -p 30004:30004 ethereum/client-go:alltools-v1.7.3 geth --password /root/data/eth4/eth4.txt --unlock 0 --identity "eth4" --datadir /root/data/eth4 --ethash.dagdir /root/data/eth4 --networkid "12345" --maxpeers 4 --nodiscover --rpc --rpcaddr "0.0.0.0" --rpcport 8081 --rpccorsdomain "*" --rpcapi "eth,net,web3,admin,personal" --port 30004 --verbosity 2 console" 
 
 sleep 2
 docker container ls -q -l > Ethereum/data/eth4/id4.txt
@@ -105,11 +105,11 @@ docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$(
 
 python3 makeurl.py
 
-####prove
-docker exec -it eth1 geth --exec "admin.nodeInfo.enode" attach "$(< Ethereum/data/urls/url1.txt)"  > Ethereum/data/eth1/enode.txt
-docker exec -it eth2 geth --exec "admin.nodeInfo.enode" attach "$(< Ethereum/data/urls/url2.txt)"  > Ethereum/data/eth2/enode.txt
-docker exec -it eth3 geth --exec "admin.nodeInfo.enode" attach "$(< Ethereum/data/urls/url3.txt)"  > Ethereum/data/eth3/enode.txt
-docker exec -it eth4 geth --exec "admin.nodeInfo.enode" attach "$(< Ethereum/data/urls/url4.txt)"  > Ethereum/data/eth4/enode.txt
+
+docker exec -it cont1 geth --exec "admin.nodeInfo.enode" attach "$(< Ethereum/data/urls/url1.txt)"  > Ethereum/data/eth1/enode.txt
+docker exec -it cont2 geth --exec "admin.nodeInfo.enode" attach "$(< Ethereum/data/urls/url2.txt)"  > Ethereum/data/eth2/enode.txt
+docker exec -it cont3 geth --exec "admin.nodeInfo.enode" attach "$(< Ethereum/data/urls/url3.txt)"  > Ethereum/data/eth3/enode.txt
+docker exec -it cont4 geth --exec "admin.nodeInfo.enode" attach "$(< Ethereum/data/urls/url4.txt)"  > Ethereum/data/eth4/enode.txt
 
 
 sed -i '1s/^.....//' Ethereum/data/eth1/enode.txt
@@ -117,27 +117,14 @@ sed -i '1s/^.....//' Ethereum/data/eth2/enode.txt
 sed -i '1s/^.....//' Ethereum/data/eth3/enode.txt 
 sed -i '1s/^.....//' Ethereum/data/eth4/enode.txt 
 
-
-#OLD
-#geth --exec "admin.nodeInfo.enode" attach "$(< Ethereum/data/urls/url1.txt)"  > Ethereum/data/eth1/enode.txt
-#geth --exec "admin.nodeInfo.enode" attach "$(< Ethereum/data/urls/url2.txt)"  > Ethereum/data/eth2/enode.txt
-#geth --exec "admin.nodeInfo.enode" attach "$(< Ethereum/data/urls/url3.txt)"  > Ethereum/data/eth3/enode.txt
-#geth --exec "admin.nodeInfo.enode" attach "$(< Ethereum/data/urls/url4.txt)"  > Ethereum/data/eth4/enode.txt
-
-
 python3 addpeercreation.py
 
-sleep 1
-
-cp addpeerf1.js Ethereum
-cp addpeerf2.js Ethereum
-cp addpeerf3.js Ethereum
 
 sleep 5
 
-docker exec -it eth1 geth --exec 'loadScript("addpeerf1.js")' attach "$(< Ethereum/data/urls/url1.txt)"
-docker exec -it eth2 geth --exec 'loadScript("addpeerf2.js")' attach "$(< Ethereum/data/urls/url2.txt)"
-docker exec -it eth3 geth --exec 'loadScript("addpeerf3.js")' attach "$(< Ethereum/data/urls/url3.txt)"
+docker exec -it cont1 geth --exec 'loadScript("root/addpeerf1.js")' attach "$(< Ethereum/data/urls/url1.txt)"
+docker exec -it cont2 geth --exec 'loadScript("root/addpeerf2.js")' attach "$(< Ethereum/data/urls/url2.txt)"
+docker exec -it cont3 geth --exec 'loadScript("root/addpeerf3.js")' attach "$(< Ethereum/data/urls/url3.txt)"
 
 python3 createtransaction.py
 

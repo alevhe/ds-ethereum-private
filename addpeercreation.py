@@ -1,6 +1,6 @@
-addpeerf1=open("addpeerf1.js","w+")
-addpeerf2=open("addpeerf2.js","w+")
-addpeerf3=open("addpeerf3.js","w+")
+addpeerf1=open("Ethereum/addpeerf1.js","w+")
+addpeerf2=open("Ethereum/addpeerf2.js","w+")
+addpeerf3=open("Ethereum/addpeerf3.js","w+")
 
 enode2f=open("Ethereum/data/eth2/enode.txt","r")
 ip2f=    open("Ethereum/data/eth2/ip.txt","r")
