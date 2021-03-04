@@ -14,10 +14,6 @@ mkdir -p Ethereum/data/eth4
 
 mkdir -p Ethereum/data/urls
 
-#sudo add-apt-repository -y ppa:ethereum/ethereum
-#sudo apt-get update
-#sudo apt-get install ethereum
-
 cd Ethereum
 
 docker pull ethereum/client-go:alltools-v1.7.3
